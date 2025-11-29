@@ -76,10 +76,10 @@ def reload():
     print(colorize(bundle["out"].rstrip(), "green"))
 
 
-def load(config):  # eg. "ahwii"
+def load():  # eg. "ahwii"
     local_zones_input = []
 
-    deny_name = os.path.join(etc_dir, f"{config}.deny.zone")
+    deny_name = os.path.join(etc_dir, f"deny.zone")
     if os.path.isfile(deny_name):
         deny_file = open(deny_name).read().splitlines()
         for line in deny_file:
@@ -92,7 +92,7 @@ def load(config):  # eg. "ahwii"
         print(colorize(f"ERROR: no {deny_name} found", "red"))
         return
 
-    allow_name = os.path.join(etc_dir, f"{config}.allow.zone")
+    allow_name = os.path.join(etc_dir, f"allow.zone")
     if os.path.isfile(allow_name):
         allow_file = open(allow_name).read().splitlines()
         for line in allow_file:
@@ -131,7 +131,7 @@ def exec_ubctl(args, input=None):
 
 
 def run_test():
-    subprocess.Popen(["exam-test.py"], shell=True).wait()
+    subprocess.Popen(["test-exam.py"], shell=True).wait()
 
 
 parser = argparse.ArgumentParser(description="exam.py: control unbound-onlywhite")
@@ -145,10 +145,8 @@ parser.add_argument(
 parser.add_argument(
     "-l",
     "--load",
-    help="load a preconfigured setup (default: ahwii)",
-    const="ahwii",
-    nargs="?",
-    metavar="zone",
+    help="load the preconfigured setup from the symlinked etc",
+    action="store_true",
 )
 parser.add_argument("-t", "--test", help="run tests", action="store_true")
 parser.add_argument("-H", "--hints", help="show hints", action="store_true")
@@ -160,7 +158,7 @@ if args.show:
 elif args.reload:
     reload()
 elif args.load:
-    load(args.load)
+    load()
 elif args.test:
     run_test()
 elif args.hints:

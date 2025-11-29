@@ -12,7 +12,7 @@ actions = {"REFUSED": "-", "NOERROR": "+"}
 
 # hardcoded defaults:
 tests_default = os.path.join(os.path.dirname(sys.argv[0]), "..", "etc", "testcases.txt")
-ns_default = "192.168.0.164"
+ns_default = "192.168.54.1"
 
 
 def colorize(text, color):

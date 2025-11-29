@@ -1,0 +1,27 @@
+# -------------------------
+# Captive Portal Allow Zone
+# -------------------------
+www.msftconnecttest.com
+connectivity-check.ubuntu.com
+www.msftncsi.com
+captive.apple.com
+www.apple.com
+www.ibook.info
+connectivitycheck.gstatic.com
+www.google.com
+fedoraproject.org
+ping.archlinux.org
+network-test.debian.org
+# -------------------------
+# Doku
+# -------------------------
+prisma.io
+docs.oracle.com
+developer.mozilla.org
+fontawesome.com
+getbootstrap.com
+cdn.jsdelivr.net # needed by bootstrap
+marketplace.visualstudio.com # vscode extensions search
+vsassets.io # vscode extension install
+validator.w3.org
+jsr.io
