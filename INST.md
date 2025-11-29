@@ -20,6 +20,14 @@
 
 - redirect all DNS Traffic that targets "not this firewall" to 127.0.0.1
 
+## Firewall -> Aliases -> Add
+
+- Content Box: <https://raw.githubusercontent.com/crypt0rr/public-doh-servers/main/ipv4.list>
+
+## Firewall -> Rules -> LAN
+
+- block incoming https traffic to this alias
+
 ## Alias ub
 
 - `alias ub='unbound-control -c /var/unbound/unbound.conf`
