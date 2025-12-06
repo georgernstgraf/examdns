@@ -1,0 +1,35 @@
+#!/bin/sh
+
+# PROVIDE: uploadthing
+# REQUIRE: LOGIN networking
+# KEYWORD: shutdown
+
+. /etc/rc.subr
+
+name="uploadthing"
+rcvar="uploadthing_enable"
+
+load_rc_config $name
+
+# Defaults
+: ${uploadthing_enable:="NO"}
+: ${uploadthing_user:="thomas"}
+: ${uploadthing_dir:="/home/thomas/uploadthing"}
+: ${uploadthing_log:="/home/thomas/uploadthing.log"}
+
+# Path to the deno binary
+procname="/usr/local/bin/deno"
+
+# We use daemon(8) to wrap the process
+pidfile="/var/run/${name}.pid"
+command="/usr/sbin/daemon"
+
+# Explanation of flags:
+# -f : Run in foreground (daemon wrapper stays in fg, but detach is handled by rc.subr logic usually, 
+#      but for daemon(8) specifically in rc.d, we usually let daemon handle the fork).
+#      Actually, strictly for rc.subr compliance with 'daemon', we use -f to detach immediately 
+#      or let rc.subr handle it. The safest modern FreeBSD pattern is below:
+
+command_args="-c -f -P ${pidfile} -u ${uploadthing_user} -o ${uploadthing_log} -c ${uploadthing_dir} ${procname} task start"
+
+run_rc_command "$1"
