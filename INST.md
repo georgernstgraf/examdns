@@ -45,3 +45,19 @@
 
 - create 33.2/32 as Proxy ARP
 - add firewall/nat port-forward from 33.2:80 to localhost:8000
+
+## LOGIN: System -> Admin -> Settings
+
+- enable ssh / root login
+- enable sudo nopass
+- enable serial console
+
+## Optional: usb eth festschreiben
+
+- /usr/local/sbin/usb_nic_rename.sh (chmod +x)
+- /usr/local/etc/devd/usb_persist.conf
+
+## ALIASES for .profile
+
+- `alias ub='unbound-control -c /var/unbound/unbound.conf`
+- `alias ut='tail -F /var/log/resolver/latest.log'`
