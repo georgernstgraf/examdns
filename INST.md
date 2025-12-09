@@ -41,6 +41,12 @@
 - run `service configd restart`
 - create the cronjob with the gui
 
+## host overrides
+
+- router
+- sense
+- tplink
+
 ## UPLOADTHING runs under service user
 
 - create 33.2/32 as Proxy ARP
@@ -61,3 +67,5 @@
 
 - `alias ub='unbound-control -c /var/unbound/unbound.conf`
 - `alias ut='tail -F /var/log/resolver/latest.log'`
+
+## bash als login shell für root
