@@ -8,7 +8,7 @@
 
 name="uploadthing"
 rcvar="uploadthing_enable"
-runuser="thomas"
+runuser="georg"
 # The command to run
 command="/home/${runuser}/.deno/bin/deno"
 # Your specific script path
