@@ -13,7 +13,7 @@ fedoraproject.org
 ping.archlinux.org
 network-test.debian.org
 # -------------------------
-# Doku
+# Doku und Build
 # -------------------------
 learn.microsoft.com
 prisma.io
@@ -22,8 +22,12 @@ docs.oracle.com
 developer.mozilla.org
 fontawesome.com
 getbootstrap.com
-cdn.jsdelivr.net # needed by bootstrap
-marketplace.visualstudio.com # vscode extensions search
-vsassets.io # vscode extension install
+cdn.jsdelivr.net
+marketplace.visualstudio.com
+vsassets.io
 validator.w3.org
 jsr.io
+# WTF?
+# vsassets.io => vscode extension install
+# marketplace.visualstudio.com => vscode extensions search
+# cdn.jsdelivr.net => needed by bootstrap
