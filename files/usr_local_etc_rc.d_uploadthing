@@ -10,13 +10,10 @@ name="uploadthing"
 rcvar="uploadthing_enable"
 runuser="georg"
 # The command to run
-command="/home/${runuser}/.deno/bin/deno"
-# Your specific script path
-script_path="main.ts"
+command="./startloop.sh"
 
 # Flags: Allow net access, allow read, bind port
 # Adjust '--allow-all' to be more specific for security if you want!
-command_args="run -A --env-file ${script_path}"
 
 # Pidfile ensures we can stop it later
 pidfile="/var/run/${name}.pid"
@@ -32,7 +29,7 @@ uploadthing_start() {
         # Set both hard and soft so the child process can't raise it later.
         ulimit -Hv 1048576 2>/dev/null || echo "WARN: could not set hard vmem ulimit"
         ulimit -Sv 1048576 2>/dev/null || echo "WARN: could not set soft vmem ulimit"
-        exec /usr/sbin/daemon -p ${pidfile} -f -u $runuser ${command} ${command_args}
+        exec /usr/sbin/daemon -p ${pidfile} -f -u $runuser ${command}
     )
 }
 
