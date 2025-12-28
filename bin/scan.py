@@ -28,8 +28,13 @@ def get_active_ips(subnet_prefix="192.168.21.", send_to_server=True):
     pattern = rf"{re.escape(subnet_prefix)}\d{{1,3}}"
     found_ips = set(re.findall(pattern, result.stdout))
     sorted_ips = sorted(found_ips, key=lambda ip: int(ip.split(".")[-1]))
+    # print a date in the form "2024-06-15 14:30:00"
+    from datetime import datetime
+    print("Scan Date:", datetime.now().strftime("%Y-%m-%d %H:%M:%S"), end="")
     if send_to_server and sorted_ips:
         print (send_ips_to_server(sorted_ips))
+    else:
+        print("\n")
 
 if __name__ == "__main__":
     get_active_ips()
