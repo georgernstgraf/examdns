@@ -1,36 +1,37 @@
 #!/usr/local/bin/python3
 import subprocess
 import re
+import urllib.request
+import json
 
-def get_active_ips(subnet_prefix="192.168.21."):
-    try:
-        # Execute pfctl -ss and capture output
-        # Requires root privileges to run pfctl
-        result = subprocess.run(
-            ["pfctl", "-ss"], 
-            capture_output=True, 
-            text=True, 
-            check=True
-        )
+def send_ips_to_server(ips, url="http://192.168.21.1:8000/activeips"):
+    """Send IPs to the server via POST request"""
+    data = {"ips": ips}
+    json_data = json.dumps(data).encode('utf-8')
+    req = urllib.request.Request(
+        url,
+        data=json_data,
+        headers={'Content-Type': 'application/json'},
+        method='POST'
+    )
+    response =  urllib.request.urlopen(req)
+    result = response.read().decode('utf-8')
+    return json.loads(result)
 
-        # Regex explanation:
-        # Look for the literal prefix, then one to three digits (\d+)
-        # It automatically stops at the ':' (port separator) or whitespace
-        pattern = rf"{re.escape(subnet_prefix)}\d+"
-        
-        # Find all matches and use a set to ensure uniqueness
-        found_ips = set(re.findall(pattern, result.stdout))
-
-        # Sort numerically by the last octet for a clean list
-        sorted_ips = sorted(found_ips, key=lambda ip: int(ip.split(".")[-1]))
-
-        for ip in sorted_ips:
-            print(ip)
-
-    except subprocess.CalledProcessError as e:
-        print(f"Error: Could not execute pfctl. {e}")
-    except PermissionError:
-        print("Error: Permission denied. Please run as root/sudo.")
+def get_active_ips(subnet_prefix="192.168.21.", send_to_server=True):
+    result = subprocess.run(
+        ["pfctl", "-ss"],
+        capture_output=True,
+        text=True,
+        check=True
+    )
+    pattern = rf"{re.escape(subnet_prefix)}\d{{1,3}}"
+    found_ips = set(re.findall(pattern, result.stdout))
+    sorted_ips = sorted(found_ips, key=lambda ip: int(ip.split(".")[-1]))
+    for ip in sorted_ips:
+        print(ip)
+    if send_to_server and sorted_ips:
+        send_ips_to_server(sorted_ips)
 
 if __name__ == "__main__":
     get_active_ips()
